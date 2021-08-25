@@ -30,7 +30,7 @@ def reigsterPage(request):
 			user = form.save()
 			username = form.cleaned_data.get('username')
 
-			group = Group.objects.get(name='customer')
+			group = Group.objects.get(name='clients')
 
 			user.groups.add(group)
 

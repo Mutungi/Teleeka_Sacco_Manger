@@ -14,7 +14,9 @@ def unauthnticated_user(view_func):
 	return wrapper_func
 
 
+
 def admin_only(view_func):
+
 	def wrapper_function(request, *args, **kwarags):
 		group = None
 		if request.user.groups.exists():
