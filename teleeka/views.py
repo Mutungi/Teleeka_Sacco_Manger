@@ -18,6 +18,8 @@ from .decorators import unauthnticated_user, admin_only
 
 from django.contrib.auth.models import Group
 
+from .models import *
+
 # Create your views here.
 
 @unauthnticated_user
@@ -69,7 +71,17 @@ def loginPage(request):
 @login_required(login_url='login')
 @admin_only
 def home(request):
-	return render(request, 'teleeka/index.html')
+	clients = Client.objects.all()
+	client_count = clients.count()
+	deposits = Deposit.objects.all()
+	total_deposits = deposits.count()
+	withdrawls = Withdrwal.objects.all()
+	total_withdrawls = withdrawls.count()
+
+	context = {'clients':clients,'client_count':client_count,
+				'deposits':deposits,'total_deposits':total_deposits,
+				'withdrawls':withdrawls,'total_withdrawls':total_withdrawls}
+	return render(request, 'teleeka/index.html', context)
 
 
 # Logout View

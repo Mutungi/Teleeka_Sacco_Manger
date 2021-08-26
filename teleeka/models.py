@@ -7,7 +7,7 @@ class Client(models.Model):
 	email = models.CharField(max_length=200, null=True)
 	phone = models.CharField(max_length=200, null=True)
 	group = models.CharField(max_length=200, null=True)
-	balance = models.IntegerField(max_length=200, null=True)
+	balance = models.IntegerField(null=True)
 
 
 	def __str__(self):
@@ -20,17 +20,17 @@ class Deposit(models.Model):
 		('Pending','Pending'),
 		('Completed', 'Completed'),
 		)
-	fullname = models.CharField(max_length=200, null=True)
+	fullname = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
 	phone = models.CharField(max_length=200, null=True)
 	group = models.CharField(max_length=200, null=True)
-	amount_to_deposit = models.IntegerField(max_length=200, null=True)
-	balance = models.IntegerField(max_length=200, null=True)
+	amount_to_deposit = models.IntegerField(null=True)
+	balance = models.IntegerField(null=True)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
 	status = models.CharField(max_length=200, null=True, choices=STATUS)
 
 
 	def __str__(self):
-		return self.fullname
+		return str(self.fullname)
 
 
 class Withdrwal(models.Model):
@@ -38,17 +38,17 @@ class Withdrwal(models.Model):
 		('Pending','Pending'),
 		('Completed', 'Completed'),
 		)
-	fullname = models.CharField(max_length=200, null=True)
+	fullname = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True)
 	phone = models.CharField(max_length=200, null=True)
 	group = models.CharField(max_length=200, null=True)
-	amount_to_deposit = models.IntegerField(max_length=200, null=True)
-	balance = models.IntegerField(max_length=200, null=True)
+	amount_to_withdrawl = models.IntegerField(null=True)
+	balance = models.IntegerField(null=True)
 	date_created = models.DateTimeField(auto_now_add=True, null=True)
 	status = models.CharField(max_length=200, null=True, choices=STATUS)
 
 
 	def __str__(self):
-		return self.fullname
+		return str(self.fullname)
 
 
 class Group(models.Model):
