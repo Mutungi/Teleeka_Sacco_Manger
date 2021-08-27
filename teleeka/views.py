@@ -45,7 +45,7 @@ def reigsterPage(request):
 
 # clients view
 def clientPage(request):
-	return render(request, 'teleeka/clients.html')
+	return render(request, 'teleeka/clientspage.html')
 
 # Login View
 @unauthnticated_user
@@ -92,4 +92,45 @@ def logoutUser(request):
 
 def profile(request):
 	return render(request, 'teleeka/profile.html')
+
+
+def deposit(request):
+	return render(request, 'teleeka/deposit.html')
+
+
+def withdrawl(request):
+	return render(request, 'teleeka/withdrawl.html')
+
+
+
+def transactions(request):
+	return render(request, 'teleeka/transactions.html')
+
+
+
+def groupPage(request):
+	return render(request, 'teleeka/groupPage.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
