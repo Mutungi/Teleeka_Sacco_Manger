@@ -14,7 +14,8 @@ urlpatterns = [
 	path('transactions/', views.transactions, name='transactions'),
 	path('groupPage/', views.groupPage, name='groupPage'),
 	path('createClient/', views.createClient, name='createClient'),
-	path('editClient/<str:pk>', views.editClient, name='editClient'),
+	path('editClient/<str:pk>/', views.editClient, name='editClient'),
+	path('deleteClient/<str:pk>/', views.deleteClient, name='deleteClient'),
 	
 	
 	

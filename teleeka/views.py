@@ -158,40 +158,51 @@ def createClient(request):
 	return render(request, 'teleeka/createClient.html',context)
 				
 
-def editClient(request,pk):
-	# clients = Client.objects.all()
-	client_edit = Client.objects.get(id=pk)
-	form = CreateClientForm(instance=client_edit)
-	# client_count = clients.count()
-	# transactions = Transaction.objects.all()
-	# transaction_count = transactions.count()
+# def editClient(request,pk):
+# 	clients = Client.objects.all()
+# 	client= Client.objects.get(id=pk)
+# 	form = CreateClientForm(instance=client)
 
-	if form.request.method == 'POST':
-		form = CreateClientForm(request.POST, instance=client_edit)
-		if form.is_valid():
-			form.save()
-			return redirect('clientpage')
-
-
-	# if request.method == 'POST':
-	# 	form = CreateClientForm(request.POST, instance=client)
-	# 	if form.is_valid():
-	# 		try:
-	# 			form.save()
-	# 			model = form.instance
-	# 			return redirect('clientpage')
-	# 		except:
-	# 			pass
-	# else:
-	# 	form = CreateClientForm()
-	
-	context = {'form':form,'clients':clients, 'client_count':client_count,
-				'transactions':transactions, 'transaction_count':transaction_count}
+# 	if request.method == 'POST':
+# 		form = CreateClientForm(request.POST, instance=client)
+# 		if form.is_valid():
+# 			try:
+# 				form.save()
+# 				model = form.instance
+# 				print("success")
+# 				return redirect('clientpage')
+# 			except:
+# 				pass
+# 	else:
+# 		form = CreateClientForm()
+# 	context = {'form':form,'clients':clients, 'client_count':client_count,'transaction_count':transaction_count}
 
 
-	return render(request, 'teleeka/editClient.html',context)
+# 	return render(request, 'teleeka/editClient.html',context)
 		
 
+def editClient(request, pk):
+	client = Client.objects.get(id=pk)
+	formset = CreateClientForm(instance=client)
+	if request.POST == 'POST':
+		formset = CreateClientForm(request.POST, instance=client)
+		if formset.is_valid():
+			formset.save()
+				# model = formset.instance
+			return redirect('clientpage')
+			# except Exception as e:
+			# 	pass
+	context = {'formset':formset}
+	return render(request, 'teleeka/editClient.html', context)
+
+
+def deleteClient(request,pk):
+	client = Client.objects.get(id=pk)
+	if request.method == 'POST':
+		client.delete()
+		return redirect('clientpage')
+	context = {'client':client}
+	return render(request, 'teleeka/delteClient.html', context)
 
 
 
