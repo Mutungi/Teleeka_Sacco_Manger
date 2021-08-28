@@ -13,6 +13,8 @@ urlpatterns = [
 	path('withdrawl/', views.withdrawl, name='withdrawl'),
 	path('transactions/', views.transactions, name='transactions'),
 	path('groupPage/', views.groupPage, name='groupPage'),
+	path('createClient/', views.createClient, name='createClient'),
+	path('editClient/<str:pk>', views.editClient, name='editClient'),
 	
 	
 	

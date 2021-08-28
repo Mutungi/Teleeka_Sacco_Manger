@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib import messages
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm, CreateClientForm
 
 from django.contrib.auth import authenticate, login , logout 
 
@@ -123,7 +123,7 @@ def clientPage(request):
 	client_count = clients.count()
 	transactions = Transaction.objects.all()
 	transaction_count = transactions.count()
-	# total_groups = clients.group.count()
+
 
 	context = {'clients':clients, 'client_count':client_count,
 				'transactions':transactions, 'transaction_count':transaction_count}
@@ -131,6 +131,66 @@ def clientPage(request):
 	return render(request, 'teleeka/clientspage.html', context)
 
 
+
+def createClient(request):
+	clients = Client.objects.all()
+	client_count = clients.count()
+	transactions = Transaction.objects.all()
+	transaction_count = transactions.count()
+
+
+	if request.method == 'POST':
+		form = CreateClientForm(request.POST)
+		if form.is_valid():
+			try:
+				form.save()
+				model = form.instance
+				return redirect('clientpage')
+			except:
+				pass
+	else:
+		form = CreateClientForm()
+	
+	context = {'form':form,'clients':clients, 'client_count':client_count,
+				'transactions':transactions, 'transaction_count':transaction_count}
+
+
+	return render(request, 'teleeka/createClient.html',context)
+				
+
+def editClient(request,pk):
+	# clients = Client.objects.all()
+	client_edit = Client.objects.get(id=pk)
+	form = CreateClientForm(instance=client_edit)
+	# client_count = clients.count()
+	# transactions = Transaction.objects.all()
+	# transaction_count = transactions.count()
+
+	if form.request.method == 'POST':
+		form = CreateClientForm(request.POST, instance=client_edit)
+		if form.is_valid():
+			form.save()
+			return redirect('clientpage')
+
+
+	# if request.method == 'POST':
+	# 	form = CreateClientForm(request.POST, instance=client)
+	# 	if form.is_valid():
+	# 		try:
+	# 			form.save()
+	# 			model = form.instance
+	# 			return redirect('clientpage')
+	# 		except:
+	# 			pass
+	# else:
+	# 	form = CreateClientForm()
+	
+	context = {'form':form,'clients':clients, 'client_count':client_count,
+				'transactions':transactions, 'transaction_count':transaction_count}
+
+
+	return render(request, 'teleeka/editClient.html',context)
+		
 
 
 

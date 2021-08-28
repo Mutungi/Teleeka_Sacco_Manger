@@ -1,6 +1,4 @@
 
-
-
 {% extends 'teleeka/main.html' %}
 
 {% load static %}
@@ -236,7 +234,7 @@
           </div>
         </div>
       </div>
-
+            
        </div>
      <div class="row">
         <div class="col">
@@ -244,69 +242,59 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Clients</h3>
+                  <h3 class="mb-0">Create Client</h3>
+
+                  <form method="POST">
+          			{% csrf_token %}
+         			<div class="container">
+				  <div class="row">
+				    <div class="col">
+				      <div class="form-group">
+        			<label for="example-text-input" class="form-control-label">Full Name</label>
+        				{{form.fullname}}
+    				</div>
+				    </div>
+				    <div class="col">
+				     <div class="form-group">
+        			<label for="example-text-input" class="form-control-label">Email</label>
+        				{{form.email}}
+    				</div>
+				    </div>
+				        <div class="col">
+				      <div class="form-group">
+        			<label for="example-text-input" class="form-control-label">Phone</label>
+        				{{form.phone}}
+    				</div>
+				    </div>
+				      <div class="col">
+				     <div class="form-group">
+        			<label for="example-text-input" class="form-control-label">Group</label>
+        				{{form.group}}
+    				</div>
+
+				    <div class="col">
+				      <div class="form-group">
+        			<label for="example-text-input" class="form-control-label">Status</label>
+        				{{form.status}}
+    				</div>
+				    </div>
+				    </div>
+				  </div>
+				  <div class="row">
+			 		<button type="submit" class="btn btn-primary btn-lg btn-block">Create Client</button>
+				  </div>
+				</div>
+         
+        </form>
+
                 </div>
               </div>
-                 <div class="col text-right">
-                  <a href="{% url 'createClient' %}" class="btn btn-md btn-primary">Add Client</a>
-                </div>
             </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Full name</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Group</th>
-                    <th scope="col">Status</th>
-                    <th></th>
-                    <th></th>
-
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for client in clients %}
-                  <tr>
-                    <th scope="row">
-                      {{client.fullname}}
-                    </th>
-                    <td>
-                      {{client.phone}}
-                    </td>
-                   <td>
-                      {{client.group}}
-                    </td>
-                    <td><a href="#" class="badge badge-success">{{client.status}}</a></td>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-info btn-sm">View</button>
-                    </td>
-                    <td>
-                      <td>
-                      <button class="btn btn-icon btn-3 btn-success" type="button">
-                        <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
-                        <a href="{% url 'editClient' client.id %}"></a>
-                         <span class="btn-inner--text">Edit</span>
-                     </button>
-                     <button class="btn btn-icon btn-3 btn-danger" type="button">
-                        <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
-                         <span class="btn-inner--text">Delete</span>
-                     </button>
-                    </td>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
+  
           </div>
         </div>
       </div>
 
-      </div>      
-      </div>
       <!-- Footer -->
       <footer class="footer pt-0">
         <div class="row align-items-center justify-content-lg-between">
