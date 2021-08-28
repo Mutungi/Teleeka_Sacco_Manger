@@ -245,30 +245,19 @@
                 </div>
               </div>
             </div>
-            <form>
+            <form method="POST">
+              {% csrf_token %}
+              {{ formset.management_form }}
               <div class="container">
                 <div class="row">
-                  <div class="col-sm">
-                    <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Name</label>
-                  <input class="form-control" type="text" value="" id="example-text-input">
+                  {% for form in formset %}
+                      {{ form }}
+                      <hr>
+                      {% endfor %} 
                 </div>
-            </div>
-            <div class="col-sm">
-                    <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Phone Number</label>
-                  <input class="form-control" type="text" value="" id="example-text-input">
-                </div>
-            </div>
-            <div class="col-sm">
-                    <div class="form-group">
-                    <label for="example-text-input" class="form-control-label">Amount To Deposit</label>
-                  <input class="form-control" type="text" value="" id="example-text-input">
-                </div>
-            </div>
-            </div>
+         
             <div class="row">
-              <button type="button" class="btn btn-primary btn-lg btn-block">Deposit</button>
+              <button type="submit" class="btn btn-primary btn-lg btn-block">Deposit</button>
             </div>
             
           </div>

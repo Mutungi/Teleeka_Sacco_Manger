@@ -43,10 +43,6 @@ def reigsterPage(request):
 	return render(request, 'teleeka/register.html', context)
 
 
-# clients view
-def clientPage(request):
-	return render(request, 'teleeka/clientspage.html')
-
 # Login View
 @unauthnticated_user
 def loginPage(request):
@@ -73,14 +69,13 @@ def loginPage(request):
 def home(request):
 	clients = Client.objects.all()
 	client_count = clients.count()
-	deposits = Deposit.objects.all()
-	total_deposits = deposits.count()
-	withdrawls = Withdrwal.objects.all()
-	total_withdrawls = withdrawls.count()
+	transactions = Transaction.objects.all()
+	transaction_count = transactions.count()
 
-	context = {'clients':clients,'client_count':client_count,
-				'deposits':deposits,'total_deposits':total_deposits,
-				'withdrawls':withdrawls,'total_withdrawls':total_withdrawls}
+	context = {'clients':clients, 'client_count':client_count,
+				'transactions':transactions, 'transaction_count':transaction_count}
+
+
 	return render(request, 'teleeka/index.html', context)
 
 
@@ -94,8 +89,9 @@ def profile(request):
 	return render(request, 'teleeka/profile.html')
 
 
-def deposit(request):
-	return render(request, 'teleeka/deposit.html')
+def deposit(request, pk):
+
+	return render(request, 'teleeka/deposit.html',context)
 
 
 def withdrawl(request):
@@ -104,7 +100,16 @@ def withdrawl(request):
 
 
 def transactions(request):
-	return render(request, 'teleeka/transactions.html')
+	clients = Client.objects.all()
+	client_count = clients.count()
+	transactions = Transaction.objects.all()
+	transaction_count = transactions.count()
+
+	context = {'clients':clients, 'client_count':client_count,
+				'transactions':transactions, 'transaction_count':transaction_count}
+
+	
+	return render(request, 'teleeka/transactions.html', context)
 
 
 
@@ -112,7 +117,18 @@ def groupPage(request):
 	return render(request, 'teleeka/groupPage.html')
 
 
+# clients view
+def clientPage(request):
+	clients = Client.objects.all()
+	client_count = clients.count()
+	transactions = Transaction.objects.all()
+	transaction_count = transactions.count()
+	# total_groups = clients.group.count()
 
+	context = {'clients':clients, 'client_count':client_count,
+				'transactions':transactions, 'transaction_count':transaction_count}
+
+	return render(request, 'teleeka/clientspage.html', context)
 
 
 

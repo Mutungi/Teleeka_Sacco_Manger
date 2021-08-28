@@ -169,8 +169,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Total Deposits</h5>
-                      <span class="h2 font-weight-bold mb-0">{{total_deposits}}</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Transacs</h5>
+                      <span class="h2 font-weight-bold mb-0">{{transaction_count}}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
@@ -244,6 +244,9 @@
                   <h3 class="mb-0">Clients</h3>
                 </div>
               </div>
+                <div class="col text-right">
+                  <a href="{% url 'clientpage' %}" class="btn btn-md btn-primary">Add Client</a>
+                </div>
             </div>
             <div class="table-responsive">
               <!-- Projects table -->
@@ -252,7 +255,9 @@
                   <tr>
                     <th scope="col">Full name</th>
                     <th scope="col">Phone</th>
-                    <th scope="col">balance</th>
+                    <th scope="col">Group</th>
+                    <th scope="col">Status</th>
+
                     <th></th>
                   </tr>
                 </thead>
@@ -265,13 +270,10 @@
                     <td>
                       {{client.phone}}
                     </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">{{client.balance}}.UGX</span>
-                        <div>
-                
-                        </div>
-                      </div>
+                   <td>
+                      {{client.group}}
+                    </td>
+                    <td><a href="#" class="badge badge-success">{{client.status}}</a></td>
                     </td>
                     <td>
                       <button type="button" class="btn btn-info btn-sm">View</button>
@@ -290,9 +292,12 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Deposits</h3>
+                  <h3 class="mb-0">Transactions</h3>
                 </div>
               </div>
+                 <div class="col text-right">
+                  <a href="{% url 'transactions' %}" class="btn btn-md btn-primary">Create Transaction</a>
+                </div>
             </div>
             <div class="table-responsive">
               <!-- Projects table -->
@@ -308,22 +313,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  {% for deposit in deposits %}
+                 {% for trans in transactions %}
                   <tr>
                     <th scope="row">
-                      {{deposit.fullname}}
+                     {{trans.clientName}}
                     </th>
                     <td>
-                      {{deposit.amount_to_deposit}}.UGX
+                     {{trans.amount}}
                     </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">{{deposit.date_created}}</span>
-                        <div>
-                        </div>
-                      </div>
+                    <td>{{trans.date_created}}</td>
                     </td>
-                    <td><a href="#" class="badge badge-info">{{deposit.status}}</a></td>
+                    <td><a href="#" class="badge badge-info">{{trans.status}}</a></td>
                     <td>
                       <button class="btn btn-icon btn-3 btn-success" type="button">
                         <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
@@ -335,66 +335,11 @@
                      </button>
                     </td>
                   </tr>
-                  {% endfor %}
+               {% endfor %}
                 </tbody>
               </table>
             </div>
           </div>
-           <div class="col">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Withdrwal</h3>
-                </div>
-              </div>
-            </div>
-            <div class="table-responsive">
-              <!-- Projects table -->
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col">Full name</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Date</th>
-                    <th>Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for withdrawl in withdrawls %}
-                  <tr>
-                    <th scope="row">
-                      {{withdrawl.fullname}}
-                    </th>
-                    <td>
-                      {{withdrawl.amount_to_withdrawl}}.UGX
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">{{withdrawl.date_created}}</span>
-                        <div>              
-                        </div>
-                      </div>
-                    </td>
-                     <td><a href="#" class="badge badge-info">{{withdrawl.status}}</a></td>
-                                        <td>
-                      <button class="btn btn-icon btn-3 btn-success" type="button">
-                        <span class="btn-inner--icon"><i class="ni ni-ruler-pencil"></i></span>
-                         <span class="btn-inner--text">Edit</span>
-                     </button>
-                     <button class="btn btn-icon btn-3 btn-danger" type="button">
-                        <span class="btn-inner--icon"><i class="ni ni-fat-remove"></i></span>
-                         <span class="btn-inner--text">Delete</span>
-                     </button>
-                    </td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
         </div>
 
         
