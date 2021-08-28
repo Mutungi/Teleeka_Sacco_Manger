@@ -246,16 +246,13 @@
 
                   <form method="POST">
           			{% csrf_token %}
-                {% for form in formset %}
-                {{form}}
+                {{formset}}
+               
                 <hr>
-                {% endfor %}
-
+                
                  <div class="row">
               <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-            </div>
-   
-         
+            </div>      
                   </form>
 
                 </div>

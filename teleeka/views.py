@@ -85,11 +85,13 @@ def logoutUser(request):
 	logout(request)
 	return redirect('login')
 
+
+
 def profile(request):
 	return render(request, 'teleeka/profile.html')
 
 
-def deposit(request, pk):
+def deposit(request):
 
 	return render(request, 'teleeka/deposit.html',context)
 
@@ -156,35 +158,15 @@ def createClient(request):
 
 
 	return render(request, 'teleeka/createClient.html',context)
-				
+					
 
-# def editClient(request,pk):
-# 	clients = Client.objects.all()
-# 	client= Client.objects.get(id=pk)
-# 	form = CreateClientForm(instance=client)
-
-# 	if request.method == 'POST':
-# 		form = CreateClientForm(request.POST, instance=client)
-# 		if form.is_valid():
-# 			try:
-# 				form.save()
-# 				model = form.instance
-# 				print("success")
-# 				return redirect('clientpage')
-# 			except:
-# 				pass
-# 	else:
-# 		form = CreateClientForm()
-# 	context = {'form':form,'clients':clients, 'client_count':client_count,'transaction_count':transaction_count}
-
-
-# 	return render(request, 'teleeka/editClient.html',context)
-		
+#edit Client View
 
 def editClient(request, pk):
 	client = Client.objects.get(id=pk)
 	formset = CreateClientForm(instance=client)
 	if request.POST == 'POST':
+		print("Printing POST: ", request.POST)
 		formset = CreateClientForm(request.POST, instance=client)
 		if formset.is_valid():
 			formset.save()
@@ -196,6 +178,8 @@ def editClient(request, pk):
 	return render(request, 'teleeka/editClient.html', context)
 
 
+
+# delete Client View
 def deleteClient(request,pk):
 	client = Client.objects.get(id=pk)
 	if request.method == 'POST':
@@ -203,6 +187,9 @@ def deleteClient(request,pk):
 		return redirect('clientpage')
 	context = {'client':client}
 	return render(request, 'teleeka/delteClient.html', context)
+
+
+
 
 
 
