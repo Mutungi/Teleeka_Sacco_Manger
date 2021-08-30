@@ -8,7 +8,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib import messages
 
-from .forms import CreateUserForm, CreateClientForm, CreateDepositForm, CreateWithdrawlForm, CreateSavingGroupForm
+from django.contrib.auth.models import User
+
+from django.forms.utils import ErrorList
+
+from .forms import  CreateClientForm, CreateDepositForm, CreateWithdrawlForm, CreateSavingGroupForm, LoginForm, SignUpForm
 
 from django.contrib.auth import authenticate, login , logout 
 
@@ -20,46 +24,97 @@ from django.contrib.auth.models import Group
 
 from .models import *
 
+
+def loginPage(request):
+    form = LoginForm(request.POST or None)
+
+    msg = None
+
+    if request.method == "POST":
+
+        if form.is_valid():
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect("/")
+            else:    
+                msg = 'Invalid credentials'    
+        else:
+            msg = 'Error validating the form'    
+
+    return render(request, "teleeka/login.html", {"form": form, "msg" : msg})
+
+
+def reigsterPage(request):
+
+    msg     = None
+    success = False
+
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=raw_password)
+
+            msg     = 'User created - please <a href="/login">login</a>.'
+            success = True
+            
+            #return redirect("/login/")
+
+        else:
+            msg = 'Form is not valid'    
+    else:
+        form = SignUpForm()
+
+    return render(request, "teleeka/register.html", {"form": form, "msg" : msg, "success" : success })
+
+
 # Create your views here.
 
-@unauthnticated_user
-def reigsterPage(request):
-	form = CreateUserForm()
+# @unauthnticated_user
+# def reigsterPage(request):
+# 	form = CreateUserForm()
 
-	if request.method == 'POST':
-		form = CreateUserForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			username = form.cleaned_data.get('username')
+# 	if request.method == 'POST':
+# 		form = CreateUserForm(request.POST)
+# 		if form.is_valid():
+# 			user = form.save()
+# 			username = form.cleaned_data.get('username')
 
-			group = Group.objects.get(name='clients')
+# 			group = Group.objects.get(name='clients')
 
-			user.groups.add(group)
+# 			user.groups.add(group)
 
-			messages.success(request, 'Account was created for '+ username)
-			return redirect('login')
+# 			messages.success(request, 'Account was created for '+ username)
+# 			return redirect('login')
 
-	context = {'form':form}
-	return render(request, 'teleeka/register.html', context)
+# 	context = {'form':form}
+# 	return render(request, 'teleeka/register.html', context)
 
 
 # Login View
-@unauthnticated_user
-def loginPage(request):
+# @unauthnticated_user
+# def loginPage(request):
 
-	username = request.POST.get('username')
-	password = request.POST.get('password')
+# 	username = request.POST.get('username')
+# 	password = request.POST.get('password')
 
-	user = authenticate(request, username=username, password=password)
-	if user is not None:
-		login(request, user)
-		return redirect('home')
+# 	user = authenticate(request, username=username, password=password)
+# 	if user is not None:
+# 		login(request, user)
+# 		return redirect('home')
 
-	else:
-		messages.info(request, 'Username or Password is Incorrect')
+# 	else:
+# 		messages.info(request, 'Username or Password is Incorrect')
 
-	context = {}
-	return render(request, 'teleeka/login.html',context)
+# 	context = {}
+# 	return render(request, 'teleeka/login.html',context)
+
+
 
 
 
