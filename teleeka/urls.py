@@ -16,6 +16,16 @@ urlpatterns = [
 	path('createClient/', views.createClient, name='createClient'),
 	path('editClient/<str:pk>/', views.editClient, name='editClient'),
 	path('deleteClient/<str:pk>/', views.deleteClient, name='deleteClient'),
+	path('createDeposit/', views.createDeposit, name='createDeposit'),
+	path('deleteDeposit/<str:pk>/', views.deleteDeposit, name='deleteDeposit'),
+	path('createWithdraw/', views.createWithdraw, name='createWithdraw'),
+	path('deleteWithdrawl/<str:pk>/', views.deleteWithdrawl, name='deleteWithdrawl'),
+	path('createGroup/', views.createGroup, name='createGroup'),
+	path('deleteGroup/<str:pk>/', views.deleteGroup, name='deleteGroup'),
+
+	
+
+
 	
 	
 	

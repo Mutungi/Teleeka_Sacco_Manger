@@ -4,6 +4,8 @@ from . models import *
 
 
 admin.site.register(Client)
-admin.site.register(Group)
-admin.site.register(Transaction)
+admin.site.register(SavingGroup)
+admin.site.register(Deposit)
+admin.site.register(Withdrawl)
+
 

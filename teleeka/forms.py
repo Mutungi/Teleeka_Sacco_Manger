@@ -18,11 +18,24 @@ class CreateUserForm(UserCreationForm):
 class CreateClientForm(ModelForm):
 	class Meta:
 		model = Client 
-		fields = ['fullname', 'email','phone','group','status','note' ]
+		fields = ['fullname', 'email','phone','group','status']
 	
+class CreateDepositForm(ModelForm):
+	class Meta:
+		model = Deposit 
+		fields = '__all__'
 
 
 
 
+class CreateWithdrawlForm(ModelForm):
+	class Meta:
+		model = Withdrawl 
+		fields = '__all__'
+
+class CreateSavingGroupForm(ModelForm):
+	class Meta:
+		model = SavingGroup 
+		fields = '__all__'
 
 
