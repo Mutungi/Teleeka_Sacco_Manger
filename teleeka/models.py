@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+
+# SavingGroup model
 class SavingGroup(models.Model):
 	STATUS = (
 		('Verified','Verified'),
@@ -15,7 +17,7 @@ class SavingGroup(models.Model):
 	def __str__(self):
 		return self.name
 
-
+# Client Model
 
 class Client(models.Model):
 	STATUS = (
@@ -37,7 +39,7 @@ class Client(models.Model):
 
 
 
-
+# deposit model
 
 class Deposit(models.Model):
 	STATUS = (
@@ -56,6 +58,7 @@ class Deposit(models.Model):
 		return str(self.clientName)
 
 
+# withrwal model
 class Withdrawl(models.Model):
 	STATUS = (
 		('Pending','Pending'),

@@ -18,13 +18,13 @@ from django.contrib.auth import authenticate, login , logout
 
 from django.contrib.auth.decorators import login_required
 
-from .decorators import unauthnticated_user, admin_only
+from .decorators import unauthnticated_user
 
 from django.contrib.auth.models import Group
 
 from .models import *
 
-
+# login View
 def loginPage(request):
     form = LoginForm(request.POST or None)
 
@@ -46,7 +46,7 @@ def loginPage(request):
 
     return render(request, "teleeka/login.html", {"form": form, "msg" : msg})
 
-
+# register view
 def reigsterPage(request):
 
     msg     = None
@@ -73,54 +73,10 @@ def reigsterPage(request):
     return render(request, "teleeka/register.html", {"form": form, "msg" : msg, "success" : success })
 
 
-# Create your views here.
-
-# @unauthnticated_user
-# def reigsterPage(request):
-# 	form = CreateUserForm()
-
-# 	if request.method == 'POST':
-# 		form = CreateUserForm(request.POST)
-# 		if form.is_valid():
-# 			user = form.save()
-# 			username = form.cleaned_data.get('username')
-
-# 			group = Group.objects.get(name='clients')
-
-# 			user.groups.add(group)
-
-# 			messages.success(request, 'Account was created for '+ username)
-# 			return redirect('login')
-
-# 	context = {'form':form}
-# 	return render(request, 'teleeka/register.html', context)
-
-
-# Login View
-# @unauthnticated_user
-# def loginPage(request):
-
-# 	username = request.POST.get('username')
-# 	password = request.POST.get('password')
-
-# 	user = authenticate(request, username=username, password=password)
-# 	if user is not None:
-# 		login(request, user)
-# 		return redirect('home')
-
-# 	else:
-# 		messages.info(request, 'Username or Password is Incorrect')
-
-# 	context = {}
-# 	return render(request, 'teleeka/login.html',context)
-
-
-
-
 
 # home view
 @login_required(login_url='login')
-@admin_only
+
 def home(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -141,7 +97,7 @@ def logoutUser(request):
 	return redirect('login')
 
 
-
+# Profile View
 def profile(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -159,7 +115,7 @@ def profile(request):
 
 	return render(request, 'teleeka/profile.html',context)
 
-
+# deposit view
 def deposit(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -179,7 +135,7 @@ def deposit(request):
 
 	return render(request, 'teleeka/deposit.html', context)
 
-
+# withdrawl view
 def withdrawl(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -197,7 +153,7 @@ def withdrawl(request):
 	return render(request, 'teleeka/withdrawl.html', context)
 
 
-
+# tansaction view
 def transactions(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -233,7 +189,7 @@ def clientPage(request):
 	return render(request, 'teleeka/clientspage.html', context)
 
 
-
+#create Client View
 def createClient(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -303,7 +259,7 @@ def deleteClient(request,pk):
 	context = {'client':client}
 	return render(request, 'teleeka/delteClient.html', context)
 
-
+# create Deposit View
 def createDeposit(request):
 
 	deposits = Deposit.objects.all()
@@ -335,7 +291,7 @@ def createDeposit(request):
 	
 	return render(request, 'teleeka/createDeposit.html', context)
 
-
+# delete Deposit view
 def deleteDeposit(request,pk):
 	deposit = Deposit.objects.get(id=pk)
 	if request.method == 'POST':
@@ -345,7 +301,7 @@ def deleteDeposit(request,pk):
 	return render(request, 'teleeka/deleteDeposit.html', context)
 
 
-
+# create withdrawl view
 def createWithdraw(request):
 
 	deposits = Deposit.objects.all()
@@ -378,7 +334,7 @@ def createWithdraw(request):
 	return render(request, 'teleeka/createWithdraw.html', context)
 
 
-
+# delete withdrawl view
 def deleteWithdrawl(request,pk):
 	withdrawl = Withdrawl.objects.get(id=pk)
 	if request.method == 'POST':
@@ -388,7 +344,7 @@ def deleteWithdrawl(request,pk):
 	return render(request, 'teleeka/deleteWithdrawl.html', context)
 
 
-
+# group page view
 def groupPage(request):
 	deposits = Deposit.objects.all()
 	count_deposit = deposits.count()
@@ -405,7 +361,7 @@ def groupPage(request):
 	return render(request, 'teleeka/groupPage.html', context)
 
 
-
+# create group view
 def createGroup(request):
 
 	deposits = Deposit.objects.all()
@@ -440,7 +396,7 @@ def createGroup(request):
 
 
 
-
+#delte group view
 def deleteGroup(request,pk):
 	group = SavingGroup.objects.get(id=pk)
 	if request.method == 'POST':
